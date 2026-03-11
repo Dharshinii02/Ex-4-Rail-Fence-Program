@@ -1,4 +1,4 @@
-# Ex-4 Rail-Fence-Program
+# Ex-5 Rail-Fence-Program
 
 # IMPLEMENTATION OF RAIL FENCE – ROW & COLUMN TRANSFORMATION TECHNIQUE
 
@@ -20,54 +20,45 @@ STEP-5: Read the characters row wise or column wise in the former order to get t
 
 # PROGRAM
 ```
-#include <stdio.h>
-#include <string.h>
-
-void encryptRailFence(char message[], int rails) {
-    int len = strlen(message);
-    char rail[50][100];   
-
-    for (int i = 0; i < rails; i++)
-        for (int j = 0; j < len; j++)
-            rail[i][j] = '\n';
-
-    int row = 0, direction = 1;
-
-    for (int i = 0; i < len; i++) {
-        rail[row][i] = message[i];
-        row += direction;
-
-        if (row == rails - 1 || row == 0)
-            direction = -direction;
-    }
-
-    printf("Encrypted text: ");
-    for (int i = 0; i < rails; i++)
-        for (int j = 0; j < len; j++)
-            if (rail[i][j] != '\n')
-                printf("%c", rail[i][j]);
-
-    printf("\n");
-}
-
+#include<stdio.h>
+#include<string.h>
 int main() {
-    char message[100];
-    int rails;
-
-    printf("Enter a Secret Message: ");
-    scanf("%s", message);
-
-    printf("Enter number of rails: ");
+    int i, j, len, rails, count, code[100][1000];
+    char str[1000];
+    printf("Enter a Secret Message\n");
+    fgets(str, sizeof(str), stdin);
+    len = strlen(str);
+    if(str[len-1] == '\n') str[len-1] = '\0';
+    len = strlen(str);
+    printf("Enter number of rails\n");
     scanf("%d", &rails);
-
-    encryptRailFence(message, rails);
-
+    for(i = 0; i < rails; i++)
+        for(j = 0; j < len; j++)
+            code[i][j] = 0;
+    count = 0;
+    j = 0;
+    while(j < len) {
+        if(count % 2 == 0) {
+            for(i = 0; i < rails && j < len; i++)
+                code[i][j] = (int)str[j++];
+        } else {
+            for(i = rails - 2; i > 0 && j < len; i--)
+                code[i][j] = (int)str[j++];
+        }
+        count++;
+    }
+    for(i = 0; i < rails; i++)
+        for(j = 0; j < len; j++)
+            if(code[i][j] != 0)
+                printf("%c", code[i][j]);
+    printf("\n");
     return 0;
 }
 ```
 
 # OUTPUT
-<img width="1524" height="888" alt="image" src="https://github.com/user-attachments/assets/16493d7b-cfb6-4143-9332-3a4dba3c326b" />
+<img width="1521" height="887" alt="image" src="https://github.com/user-attachments/assets/63510a69-9f3c-442a-9d25-d60f4cb62ab1" />
+
 
 
 # RESULT
