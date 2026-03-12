@@ -20,44 +20,58 @@ STEP-5: Read the characters row wise or column wise in the former order to get t
 
 # PROGRAM
 ```
-#include<stdio.h>
-#include<string.h>
+#include <stdio.h>
+#include <string.h>
+
 int main() {
-    int i, j, len, rails, count, code[100][1000];
     char str[1000];
-    printf("Enter a Secret Message\n");
+    int rails, len;
+    int i, j, row = 0, dir = 1;
+    char rail[100][1000];
+
+    printf("Enter a Secret Message:\n");
     fgets(str, sizeof(str), stdin);
+
+    // remove newline if present
+    str[strcspn(str, "\n")] = '\0';
+
     len = strlen(str);
-    if(str[len-1] == '\n') str[len-1] = '\0';
-    len = strlen(str);
-    printf("Enter number of rails\n");
+
+    printf("Enter number of rails:\n");
     scanf("%d", &rails);
-    for(i = 0; i < rails; i++)
-        for(j = 0; j < len; j++)
-            code[i][j] = 0;
-    count = 0;
-    j = 0;
-    while(j < len) {
-        if(count % 2 == 0) {
-            for(i = 0; i < rails && j < len; i++)
-                code[i][j] = (int)str[j++];
-        } else {
-            for(i = rails - 2; i > 0 && j < len; i--)
-                code[i][j] = (int)str[j++];
-        }
-        count++;
+
+    // initialize rail matrix
+    for (i = 0; i < rails; i++)
+        for (j = 0; j < len; j++)
+            rail[i][j] = '\0';
+
+    // fill zig-zag pattern
+    for (j = 0; j < len; j++) {
+        rail[row][j] = str[j];
+
+        if (row == 0)
+            dir = 1;
+        else if (row == rails - 1)
+            dir = -1;
+
+        row += dir;
     }
-    for(i = 0; i < rails; i++)
-        for(j = 0; j < len; j++)
-            if(code[i][j] != 0)
-                printf("%c", code[i][j]);
+
+    // print encrypted text
+    printf("Encrypted Message: ");
+    for (i = 0; i < rails; i++)
+        for (j = 0; j < len; j++)
+            if (rail[i][j] != '\0')
+                printf("%c", rail[i][j]);
+
     printf("\n");
     return 0;
 }
 ```
 
 # OUTPUT
-<img width="1521" height="887" alt="image" src="https://github.com/user-attachments/assets/63510a69-9f3c-442a-9d25-d60f4cb62ab1" />
+<img width="1332" height="896" alt="image" src="https://github.com/user-attachments/assets/ddfde742-e5fd-4ffe-b025-9f2aadc6c903" />
+
 
 
 
