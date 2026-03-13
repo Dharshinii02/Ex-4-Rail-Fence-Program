@@ -48,7 +48,7 @@ int main()
 
     count=0;
     j=0;
-
+    printf("The Encrypted Text:");
     while(j<len)
     {
         if(count%2==0)
@@ -78,15 +78,16 @@ int main()
                 printf("%c",code[i][j]);
         }
     }
-
+   
     printf("\n");
     return 0;
 }
 
+
 ```
 
 # OUTPUT
-<img width="1381" height="877" alt="image" src="https://github.com/user-attachments/assets/1f6e99cb-1c07-44b7-b57b-49cde17ac5c8" />
+<img width="1356" height="879" alt="image" src="https://github.com/user-attachments/assets/b7826ed4-31b8-4296-b778-437eff8a58a9" />
 
 
 
